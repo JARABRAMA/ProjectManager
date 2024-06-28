@@ -1,23 +1,28 @@
-package org.jarabrama.projectmanager.model
+package org.jarabrama.projectmanager.model.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import org.jarabrama.projectmanager.model.enums.Status
 import java.util.Date
 
 @Entity
-class Project (
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+class Task(
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     val id: Long = 0,
     @Column
-    var name: String,
+    var title: String,
     @Column
     var description: String,
     @Column
-    val startDate: Date,
+    var developerId: Long,
     @Column
-    var endDate: Date
+    var projectId: Long,
+    @Column
+    var status: Status,
+    @Column
+    val date: Date,
 )
