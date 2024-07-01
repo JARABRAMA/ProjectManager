@@ -7,10 +7,20 @@ import java.time.LocalDate
 
 interface TaskService {
     fun findAll(): List<Task>
-    fun findAllByUser(userId: Long): List<Task>
+    fun find(id: Long): Task
+    fun findAllByDeveloper(userId: Long): List<Task>
     fun findAllByProject(projectId: Long): List<Task>
-    fun save(projectId: Long, userId: Long, title: String, description: String, status: Status? = Status.TODO, date: LocalDate? = LocalDate.now())
     fun updateStatus(id: Long, status: Status)
-    fun update(taskId: Long, userId: Long, title: String, description: String)
+    fun update(
+        taskId: Long,
+        developerId: Long?,
+        projectId: Long?,
+        title: String?,
+        description: String?,
+        initDate: LocalDate?,
+        finishDate: LocalDate?
+    )
+
     fun remove(taskId: Long)
+    fun save(task: Task): Task
 }

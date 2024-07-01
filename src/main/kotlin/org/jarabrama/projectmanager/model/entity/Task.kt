@@ -1,18 +1,16 @@
 package org.jarabrama.projectmanager.model.entity
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import org.jarabrama.projectmanager.model.enums.Status
+import java.time.LocalDate
 import java.util.Date
 
 @Entity
+@Table
 class Task(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    val id: Long = 0,
+    val id: Long? = 0,
     @Column
     var title: String,
     @Column
@@ -22,7 +20,10 @@ class Task(
     @Column
     var projectId: Long,
     @Column
-    var status: Status,
+    @Enumerated(value = EnumType.STRING)
+    var status: Status?  = Status.TODO,
     @Column
-    val date: Date,
+    val initDate: LocalDate? = LocalDate.now(),
+    @Column
+    val finishDate: LocalDate
 )
