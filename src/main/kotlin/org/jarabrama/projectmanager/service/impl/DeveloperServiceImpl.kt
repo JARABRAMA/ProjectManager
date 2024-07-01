@@ -47,19 +47,12 @@ class DeveloperServiceImpl(private val developerRepository: DeveloperRepository)
         return optDeveloper.get()
     }
 
-    override fun save(email: String, password: String, fullName: String, role: Role): Developer {
-        val exist = findAll().firstOrNull {it.email == email}
+    override fun save(developer: Developer): Developer {
+        val exist = findAll().firstOrNull { it.email == developer.email }
         if (exist == null) {
-            return developerRepository.save(
-                Developer(
-                    email = email,
-                    password = password,
-                    fullName = fullName,
-                    role = role
-                )
-            )
+            return developerRepository.save(developer)
         }
-        throw DeveloperAlreadyExistException(email)
+        throw DeveloperAlreadyExistException(developer.email)
     }
 
     override fun update(id: Long, email: String, password: String, fullName: String, role: Role) {

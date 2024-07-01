@@ -31,18 +31,13 @@ class ProjectServiceImpl(private val projectRepository: ProjectRepository) : Pro
         return optProject.get()
     }
 
-    override fun save(name: String, description: String, startDate: LocalDate?, endDate: LocalDate) {
+    override fun save(project:Project) {
         try {
-            this.find(name) // it'll throw a ProjectNotFoundException if the project does not exist
-            throw ProjectAlreadyExistException(name)
+            this.find(project.name) // it'll throw a ProjectNotFoundException if the project does not exist
+            throw ProjectAlreadyExistException(project.name)
         } catch (e: ProjectNotFoundException) {
             projectRepository.save(
-                Project(
-                    name = name,
-                    description = description,
-                    startDate = startDate ?: LocalDate.now(),
-                    endDate = endDate,
-                )
+                project
             )
         }
     }

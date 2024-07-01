@@ -46,14 +46,7 @@ class ProjectServiceImplTest {
     )
 
     private fun setUp() {
-        projects.forEach {
-            projectService.save(
-                name = it.name,
-                description = it.description,
-                startDate = it.startDate,
-                endDate = it.endDate
-            )
-        }
+        projects.forEach { projectService.save(it) }
     }
 
     private fun clearAll() {
@@ -139,9 +132,11 @@ class ProjectServiceImplTest {
         setUp()
         assertThrows<ProjectAlreadyExistException> {
             projectService.save(
-                name = "flutter app",
-                description = "flutter app description",
-                endDate = LocalDate.of(2024, 7, 8)
+                Project(
+                    name = "flutter app",
+                    description = "flutter app description",
+                    endDate = LocalDate.of(2024, 7, 8)
+                )
             )
         }
     }

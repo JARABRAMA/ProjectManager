@@ -31,9 +31,7 @@ class DeveloperServiceImplTest {
     }
 
     private fun setUp() {
-        developers.forEach { developer ->
-            developerService.save(developer.email, developer.password, developer.fullName, developer.role)
-        }
+        developers.forEach { developer -> developerService.save(developer) }
     }
 
     @Test
@@ -63,7 +61,15 @@ class DeveloperServiceImplTest {
         val newJuliane = developerService.find("juliane@example.com")
         newJuliane.password = "sa"
         newJuliane.role = Role.ADMIN
-        newJuliane.id?.let { developerService.update(it, newJuliane.email, newJuliane.password, newJuliane.fullName, newJuliane.role) }
+        newJuliane.id?.let {
+            developerService.update(
+                it,
+                newJuliane.email,
+                newJuliane.password,
+                newJuliane.fullName,
+                newJuliane.role
+            )
+        }
         val foundedJuliane = developerService.find("juliane@example.com")
         assertTrue(compareDevelopers(newJuliane, foundedJuliane))
 
@@ -120,7 +126,7 @@ class DeveloperServiceImplTest {
         val developer =
             Developer(fullName = "Jon Doe", email = "jondoe@example.com", password = "password", role = Role.DEVELOPER)
         val savedDeveloper =
-            developerService.save(developer.email, developer.password, developer.fullName, developer.role)
+            developerService.save(developer)
         assertTrue(compareDevelopers(developer, savedDeveloper))
     }
 

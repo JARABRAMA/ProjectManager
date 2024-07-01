@@ -11,6 +11,6 @@ interface DeveloperService {
     fun find(id: Long): Developer
     fun find(email: String): Developer
     fun remove(id: Long)
-    fun save(email: String, password: String, fullName: String, role: Role): Developer
+    fun save(developer: Developer): Developer
     fun update(id: Long, email: String, password: String, fullName: String, role: Role)
 }
